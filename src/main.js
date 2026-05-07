@@ -25,7 +25,12 @@ select.addEventListener("change", async (event) => {
   }
 
   const data = await resp.json();
-  console.info(data);
+
+  const html = data
+    .map((item) => `<li>${item.name ? item.name : item.title}</li>`)
+    .join("");
+
+  output.innerHTML = `<ul>${html}</ul>`;
 });
 const output = document.querySelector("#output");
 
