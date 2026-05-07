@@ -27,3 +27,23 @@ select.addEventListener("change", async (event) => {
   const data = await resp.json();
   console.info(data);
 });
+const output = document.querySelector("#output");
+
+select.addEventListener("change", async (event) => {
+  const category = event.target.value;
+  if (!category) return;
+
+  // Loading state
+  output.textContent = `Loading ${category}...`;
+
+  const resp = await fetch(`https://swapi.info/api/${category}/`);
+
+  if (!resp.ok) {
+    output.textContent = `Something went wrong. Status: ${resp.status}`;
+    return;
+  }
+
+  const data = await resp.json();
+  console.info(data);
+  output.textContent = `Loaded ${data.length} results.`;
+});
